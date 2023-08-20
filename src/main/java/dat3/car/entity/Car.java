@@ -9,11 +9,11 @@ public class Car
 	{
 
 		@Id
-		@GeneratedValue
+		@GeneratedValue(strategy = GenerationType.IDENTITY)
 		private Long ID;
-		@Column(name = "car_brand")
+		@Column(name = "car_brand",length = 50)
 		private String brand;
-		@Column (name = "car_model")
+		@Column (name = "car_model",length = 60)
 		private String model;
 		@Column(name = "rental_price_day")
 		private double pricePrDay;
@@ -27,6 +27,11 @@ public class Car
 				this.model = model;
 				this.pricePrDay = pricePrDay;
 				this.bestDiscount = bestDiscount;
+			}
+
+		public Car()
+			{
+
 			}
 
 		public void setID(Long id)
