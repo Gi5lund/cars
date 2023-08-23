@@ -1,7 +1,9 @@
 package dat3.car.config;
 
 import dat3.car.entity.Car;
+import dat3.car.entity.Member;
 import dat3.car.repository.CarRepository;
+import dat3.car.repository.MemberRepository;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Controller;
@@ -13,8 +15,10 @@ import java.util.List;
 public class DeveloperData implements ApplicationRunner
 	{
 		CarRepository carRepository;
-		public DeveloperData(CarRepository carRepository){
+		MemberRepository memberRepository;
+		public DeveloperData(CarRepository carRepository,MemberRepository memberRepository){
 			this.carRepository=carRepository;
+			this.memberRepository=memberRepository;
 		}
 		@Override
 		public void run(ApplicationArguments args) throws Exception
@@ -71,5 +75,13 @@ public class DeveloperData implements ApplicationRunner
 				cars.add(new Car( "Volvo","ModelB",266.65,4));
 				cars.add(new Car( "Volvo","ModelB",142.39,14));
 				carRepository.saveAll(cars);
+
+				List<Member> members=new ArrayList<>();
+				members.add( new Member("user1", "password1", "user1@example.com", "John", "Doe", "123 Main St", "New York", "10001"));
+				members.add( new Member("user2", "password2", "user2@example.com", "Jane", "Smith", "456 Elm St", "Los Angeles", "90001"));
+				members.add( new Member("user3", "password3", "user3@example.com", "Michael", "Johnson", "789 Oak St", "Chicago", "60601"));
+				members.add( new Member("user4", "password4", "user4@example.com", "Emily", "Williams", "321 Pine St", "Houston", "77001"));
+				members.add( new Member("user5", "password5", "user5@example.com", "David", "Brown", "654 Birch St", "Miami", "33101"));
+				memberRepository.saveAll(members);
 			}
 	}

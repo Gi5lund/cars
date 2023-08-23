@@ -5,9 +5,10 @@ Reason for using an ORM includes:
 - independence of database type and scheme
 - keeping it Object Oriented (abstraction, encapsulation,...)
 ##The meaning of the terms JPA, Hibernate and Spring Data JPA and how they are connected:##
-- JPA: Java Persistence API, interface handling persistence
-- Hibernate
-- Spring Data JPA
+- JPA: Java Persistence API, interface handling persistence, just a specification
+- Hibernate: an implementation of JPA
+- Spring Data JPA: an abstraction that uses a JPA provider, thus reducing boilerplate code required for implementing data
+  acces layers for various persistence stores
 ##How to create simple Java entities and map them to a database via the Spring Data API:##
 By annotating the class with @Entity
 - Annotating each attribute to be persisted with @Column (name="<name of column in database>", lenght= <Size of field>)
