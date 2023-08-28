@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table
 
-public class Member
+public class Member extends AdminDetails
 	{
 	@Id
 	//@GeneratedValue(strategy = GenerationType.UUID)
@@ -30,10 +30,7 @@ public class Member
 		private String zip;
 		private boolean approved;
 		private int ranking;
-		@UpdateTimestamp
-		private LocalDateTime lastEdited;
-		@CreationTimestamp
-		private LocalDateTime created;
+
 
 
 		public Member(String user, String password, String email, String firstName,

@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "car")
 
-public class Car
+public class Car extends AdminDetails
 	{
 
 		@Id
@@ -31,10 +31,7 @@ public class Car
 		private double pricePrDay;
 		@Column(name = "max_discount")
 		private int bestDiscount;
-		@UpdateTimestamp
-		private LocalDateTime lastEdited;
-		@CreationTimestamp
-		private LocalDateTime created;
+
 
 		public Car(String brand, String model, double pricePrDay, int bestDiscount)
 			{
