@@ -67,4 +67,26 @@ public class MemberService
 			return new MemberResponse(member,true);
 		}
 
+		public ResponseEntity<Boolean> setRanking(String username, int value)
+			{
+				Member member=getMember(username);
+				member.setRanking(value);
+				memberRepository.save(member);
+				return ResponseEntity.ok(true);
+			}
+
+
+		public ResponseEntity<Boolean> deleteMemberByID(String username)
+			{
+				memberRepository.delete(getMember(username));
+				return ResponseEntity.ok(true);
+			}
+			private Member getMember(String username){
+				Member member;
+				member= memberRepository.findById(username).
+						orElseThrow(()-> new ResponseStatusException(HttpStatus.BAD_REQUEST,"Member with this username does not exist"));
+				return member;
+			}
+
+
 	}
