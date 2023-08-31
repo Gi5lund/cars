@@ -19,7 +19,7 @@
 <script>
   const fetchCars = document.getElementById('btn-fetch-cars');
   const tbody = document.querySelector('#table-rows');
-  const url = '/api/cars';
+  const url = 'https://carsrus.azurewebsites.net/';
   fetchCars.addEventListener('click', () => {
     fetch(url)
             .then(response => response.json())
