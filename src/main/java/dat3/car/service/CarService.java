@@ -55,7 +55,7 @@ public class CarService
 		public ResponseEntity<Boolean> editCar(CarRequest body, int id)
 			{
 				Car car=getCar(id);
-				if(!body.getId()==id){
+				if(body.getId()!=id){
 					throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Cannot change car-Id");
 				}
 				car.setBrand(body.getBrand());

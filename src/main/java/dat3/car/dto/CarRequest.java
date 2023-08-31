@@ -31,6 +31,6 @@ public class CarRequest
 				this.bestDiscount=c.getBestDiscount();
 			}
 		public static Car getCarEntity(CarRequest request){
-			return new Car(request.getId(),request.brand,request.model,request.getPricePrDay(),request.getBestDiscount());
+			return new Car(request.brand,request.model,request.getPricePrDay(),request.getBestDiscount());
 		}
 	}
