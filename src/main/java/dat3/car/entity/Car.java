@@ -4,11 +4,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @Getter
@@ -33,7 +28,7 @@ public class Car extends AdminDetails
 		private int bestDiscount;
 
 
-		public Car(String brand, String model, double pricePrDay, int bestDiscount)
+		public Car(int id, String brand, String model, double pricePrDay, int bestDiscount)
 			{
 
 				this.brand = brand;

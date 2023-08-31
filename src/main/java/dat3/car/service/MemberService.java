@@ -23,12 +23,13 @@ public class MemberService
 
 		public List<MemberResponse> getMembers(boolean includeAll)
 			{
-				List<MemberResponse> respons=new ArrayList<>();
+				//new ArrayList<>();
 				List<Member> members=memberRepository.findAll();
-				for(Member member:members){
-					MemberResponse mr=new MemberResponse(member, includeAll);
-					respons.add(mr);
-				}
+//				for(Member member:members){
+//					MemberResponse mr=new MemberResponse(member, includeAll);
+//					respons.add(mr);
+//				}
+				List<MemberResponse> respons=members.stream().map((member -> new MemberResponse(member,includeAll))).toList();
 
 				return respons;
 
@@ -44,9 +45,7 @@ public class MemberService
 				return new MemberResponse(newMember,true);
 			}
 		public ResponseEntity<Boolean> editMember(MemberRequest body, String username) {
-			Member member = memberRepository.findById(username)
-					.orElseThrow(()-> new ResponseStatusException(HttpStatus.BAD_REQUEST,"Member with this username does not exist"));// bemærk Lamdafunktion..
-			//Brugeren må ikke ændre brugernavn fordi...
+			Member member = getMember(username);
 			if(!body.getUsername().equals(username)){
 				throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Cannot change username");
 			}
@@ -62,8 +61,7 @@ public class MemberService
 		}
 
 		public MemberResponse findById(String username) {
-			Member member = memberRepository.findById(username).
-					orElseThrow(()-> new ResponseStatusException(HttpStatus.BAD_REQUEST,"Member with this username does not exist"));
+			Member member = getMember(username);
 			return new MemberResponse(member,true);
 		}
 
@@ -84,7 +82,7 @@ public class MemberService
 			private Member getMember(String username){
 				Member member;
 				member= memberRepository.findById(username).
-						orElseThrow(()-> new ResponseStatusException(HttpStatus.BAD_REQUEST,"Member with this username does not exist"));
+						orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Member with this username does not exist"));
 				return member;
 			}
 

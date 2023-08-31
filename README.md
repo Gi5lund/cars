@@ -10,9 +10,13 @@
 # How to design simple CRUD endpoints using spring boot and DTOs to separate api from data structure  -> Focus on your use of DTO's:
   - 
   
-#  What is the advantage of using using DTOs to separate api from data structure when designing rest endpoints:
+#  What is the advantage of using DTOs to separate api from data structure when designing rest endpoints:
+ved at bruge DTO klasser kan vi sikre at vi kun viser de attributter fra Entitets-klasserne som er relevante
 
 # Explain shortly the concept mocking in relation to software testing:
+at “mocke” er et lave en slags kopi eller efterligning af det som IKKE skal testes. Det er en metode som sikrer at man 
+kender bestemte variabler, betingelser og tilstande forud for en test som derved kan teste på 
+hvordan koden forholder sig til dette kendte input.
 
 # How did you mock database features, either using an in-memory database and/or mockito:
 
