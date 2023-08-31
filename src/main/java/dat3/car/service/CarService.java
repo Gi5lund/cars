@@ -22,14 +22,9 @@ public class CarService
 			{
 				this.carRepository = carRepository;
 			}
-			private Car getCar(int id){
-			Car car;
-			car=carRepository.findById(id).
-					orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Car with this Id does not exist"));
-			return car;
-			}
 
-		 CarResponse findById(Integer id)
+
+		 public CarResponse findById(Integer id)
 			{
 				Car car=getCar(id);
 				return new CarResponse(car,true);
@@ -65,4 +60,10 @@ public class CarService
 				carRepository.save(car);
 				return ResponseEntity.ok(true);
 			}
+		private Car getCar(int id){
+			Car car;
+			car=carRepository.findById(id).
+					orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Car with this Id does not exist"));
+			return car;
+		}
 	}

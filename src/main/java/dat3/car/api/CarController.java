@@ -29,9 +29,9 @@ public class CarController
 			return carService.getCars(false);
 		}
 		//Security Admin
-		@GetMapping(path = "/{ID}")
-		CarResponse getCarById(@PathVariable String ID) throws Exception {
-			return CarService.findById(ID);
+		@GetMapping(path = "/{id}")
+		CarResponse getCarById(@PathVariable Integer id) throws Exception {
+			return carService.findById(id);
 		}
 
 		//Security --> Anonymous
@@ -41,22 +41,23 @@ public class CarController
 		}
 
 		//Security ???
-		@PutMapping("/{username}")
+		@PutMapping("/{id}")
 		ResponseEntity<Boolean> editCar(@RequestBody CarRequest body, @PathVariable int id){
 			return carService.editCar(body,id);
 		}
 
 		//Security ????
-		@PatchMapping("/ranking/{username}/{value}")
-		ResponseEntity<Boolean> setRankingForUser(@PathVariable String username, @PathVariable int value) {
-			return memberService.setRanking(username,value);
-		}
-
-		// Security ????
-		@DeleteMapping("/{username}")
-		ResponseEntity<Boolean> deleteMemberByUsername(@PathVariable String username) {
-			return memberService.deleteMemberByID(username);
-		}
+//		@PatchMapping("/ranking/{username}/{value}")
+//		ResponseEntity<Boolean> setRankingForUser(@PathVariable Integer Id, @PathVariable int value) {
+//
+//			return carService.set();
+//		}
+//
+//		// Security ????
+//		@DeleteMapping("/{username}")
+//		ResponseEntity<Boolean> deleteMemberByUsername(@PathVariable String username) {
+//			return carService.deleteMemberByID(username);
+//		}
 
 	}
 

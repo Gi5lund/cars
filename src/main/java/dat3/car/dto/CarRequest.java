@@ -27,7 +27,7 @@ public class CarRequest
 				this.brand = c.getBrand();
 				this.model = c.getModel();
 				this.pricePrDay = c.getPricePrDay();
-				this.id=c.getID();
+				this.id=c.getId();
 				this.bestDiscount=c.getBestDiscount();
 			}
 		public static Car getCarEntity(CarRequest request){

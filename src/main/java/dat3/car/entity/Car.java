@@ -17,7 +17,7 @@ public class Car extends AdminDetails
 
 		@Id
 		@GeneratedValue(strategy = GenerationType.IDENTITY)
-		private int ID;
+		private int id;
 		@Column(name = "car_brand",length = 50)
 		private String brand;
 		@Column (name = "car_model",length = 60)
