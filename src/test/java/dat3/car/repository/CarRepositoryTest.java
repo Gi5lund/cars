@@ -20,10 +20,10 @@ class CarRepositoryTest
 			{
 				if(!isInitialized){
 					carRepository.deleteAll();
-					carRepository.save(new Car("Kia","ModelC",472.81,6));
-					carRepository.save(new Car("VW","ModelD",303.78,8));
-					carRepository.save(new Car("Volvo","ModelA",266.65,4));
-					carRepository.save(new Car("Volvo","ModelE",305.31,4));
+					carRepository.save(new Car("Kia","ModelC",472.81,6, 1));
+					carRepository.save(new Car("VW","ModelD",303.78,8, 2));
+					carRepository.save(new Car("Volvo","ModelA",266.65,4, 3));
+					carRepository.save(new Car("Volvo","ModelE",305.31,4, 4));
 					isInitialized=true;
 				}
 			}

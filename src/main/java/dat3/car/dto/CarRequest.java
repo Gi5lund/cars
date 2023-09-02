@@ -13,7 +13,7 @@ import lombok.*;
 public class CarRequest
 	{
 
-		private int id;
+		private Integer id;
 
 		private String brand;
 		private String model;
@@ -31,6 +31,6 @@ public class CarRequest
 				this.bestDiscount=c.getBestDiscount();
 			}
 		public static Car getCarEntity(CarRequest request){
-			return new Car(request.brand,request.model,request.getPricePrDay(),request.getBestDiscount());
+			return new Car(request.brand,request.model,request.getPricePrDay(),request.getBestDiscount(),request.getId());
 		}
 	}
