@@ -18,6 +18,7 @@ import java.time.LocalDateTime;
 public class CarResponse
 	{
 		String brand;
+		Integer id;
 		String model;
 		Double pricePrDay;
 		Integer bestDiscount;
@@ -35,6 +36,7 @@ public class CarResponse
 					this.bestDiscount = c.getBestDiscount();
 					this.edited=c.getEdited();
 					this.created=c.getCreated();
+					this.id=c.getId();
 				}
 
 			}

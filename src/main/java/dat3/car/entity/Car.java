@@ -28,7 +28,7 @@ public class Car extends AdminDetails
 		private int bestDiscount;
 
 
-		public Car(String brand, String model, double pricePrDay, int bestDiscount)
+		public Car(String brand, String model, double pricePrDay, int bestDiscount, Integer id)
 			{
 
 				this.brand = brand;

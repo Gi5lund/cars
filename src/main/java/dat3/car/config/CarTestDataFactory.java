@@ -41,8 +41,9 @@ public class CarTestDataFactory {
 			String model = models.get(brand).get(random.nextInt(models.get(brand).size()));
 			double price = 200 + random.nextInt(800);
 			Integer discount = discounts.get(random.nextInt(discounts.size()));
+			int id=i;
 
-			Car car = new Car(brand, model, price, discount);
+			Car car = new Car(brand, model, price, discount, id);
 			cars.add(car);
 		}
 		return cars;
