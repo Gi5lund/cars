@@ -19,6 +19,7 @@ kender bestemte variabler, betingelser og tilstande forud for en test som derved
 hvordan koden forholder sig til dette kendte input.
 
 # How did you mock database features, either using an in-memory database and/or mockito:
+jeg brugte H2 in-memory
 
 # Explain the concept Build Server and the role Github Actions play here:
 
