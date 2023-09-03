@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.antlr.v4.runtime.misc.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -26,10 +27,13 @@ public class Member extends AdminDetails
 		private String password;
 	@Column(name = "e-mail")
 		private String email;
+	@NotNull
 	@Column(length = 60)
 		private String firstName;
+		@NotNull
 		@Column(length = 60)
 		private String lastName;
+		@NotNull
 		@Column(length = 60)
 		private String street;
 		@Column(length = 60)
