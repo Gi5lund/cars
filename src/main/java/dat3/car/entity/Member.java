@@ -14,21 +14,31 @@ import java.time.LocalDateTime;
 @Setter
 //-----
 @Entity
-@Table
+@Table(name = "member")
 
 public class Member extends AdminDetails
 	{
 	@Id
 	//@GeneratedValue(strategy = GenerationType.UUID)
+	@Column(name = "username",unique = true)
 		private String username;
+	@Column(name="password",nullable = false)
 		private String password;
+	@Column(name = "e-mail")
 		private String email;
+	@Column(nullable = false,length = 60)
 		private String firstName;
+		@Column(nullable = false,length = 60)
 		private String lastName;
+		@Column(nullable = false,length = 60)
 		private String street;
+		@Column(nullable = false,length = 60)
 		private String city;
+		@Column(nullable = false,length = 60)
 		private String zip;
+		@Column(name = "approved")
 		private boolean approved;
+		@Column(name = "ranking")
 		private int ranking;
 
 
