@@ -26,15 +26,15 @@ public class Member extends AdminDetails
 		private String password;
 	@Column(name = "e-mail")
 		private String email;
-	@Column(nullable = false,length = 60)
+	@Column(length = 60)
 		private String firstName;
-		@Column(nullable = false,length = 60)
+		@Column(length = 60)
 		private String lastName;
-		@Column(nullable = false,length = 60)
+		@Column(length = 60)
 		private String street;
-		@Column(nullable = false,length = 60)
+		@Column(length = 60)
 		private String city;
-		@Column(nullable = false,length = 60)
+		@Column(length = 60)
 		private String zip;
 		@Column(name = "approved")
 		private boolean approved;
