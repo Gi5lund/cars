@@ -43,7 +43,7 @@ public class CarTestDataFactory {
 			Integer discount = discounts.get(random.nextInt(discounts.size()));
 			int id=i;
 
-			Car car = new Car(brand, model, price, discount, id);
+			Car car = new Car(brand, model, price, discount);
 			cars.add(car);
 		}
 		return cars;

@@ -23,19 +23,21 @@ class CarServiceTest
 		Car car1, car2;
 		@BeforeEach
 		void setup(){
-			car1=carRepository.save(new Car("Ford","Fiesta",270.30,15, 1));
-			car1=carRepository.save(new Car("Toyota","Yaris",150,15, 2));
+			car1=carRepository.saveAndFlush(new Car("Ford","Fiesta",270.30,15));
+			car2=carRepository.saveAndFlush(new Car("Toyota","Yaris",150,152));
 			carService=new CarService(carRepository);
 		}
 
-	//	@Test
-//		void findById()
-//			{
-//				CarResponse res=carService.findById(1);
-//				assertEquals("Ford",res.getBrand(),"should return Brand=Ford");
-//				assertEquals("Fiesta",res.getModel(),"should return model= Fiesta");
-//				assertEquals(270.30,res.getPricePrDay());
-//			}
+		@Test
+		void findById()
+			{
+				CarResponse res= new CarResponse(car1,true);// obs du kender ikke ID!
+				CarResponse resp=	carService.findById(res.getId())	;
+				assertEquals("Ford",resp.getBrand(),"should return Brand=Ford");
+				assertEquals(car1.getId(),resp.getId(),"should return true");
+				assertEquals("Fiesta",res.getModel(),"should return model= Fiesta");
+				assertEquals(270.30,res.getPricePrDay());
+			}
 
 		@Test
 		void getCars()
