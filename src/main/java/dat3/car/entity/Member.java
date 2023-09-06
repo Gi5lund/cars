@@ -9,6 +9,10 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @NoArgsConstructor
 @Getter
@@ -44,6 +48,8 @@ public class Member extends AdminDetails
 		private boolean approved;
 		@Column(name = "ranking")
 		private int ranking;
+		@OneToMany(mappedBy = "member")
+		private Set<Reservation> reservations;
 
 
 
@@ -58,5 +64,10 @@ public class Member extends AdminDetails
 			this.city = city;
 			this.zip = zip;
 		}
-
+		public void addReservation(Reservation reservation){
+			if(reservations==null){
+				reservations=new HashSet<>();
+			}
+			reservations.add(reservation);
+		}
 	}
