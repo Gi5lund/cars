@@ -37,7 +37,9 @@ public class ReservationService
 			Car car = carRepository.findById(body.getCarId()).orElseThrow(
 					() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"No Car with this id found"));
 			//What if already reserved
-
+				if(reservationRepository.existsByCarIdAndRentalDate(body.getCarId(),body.getDate())){
+					throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"This car is already booked on this date");
+				}
 			Reservation res = reservationRepository.save(new Reservation(car,member,body.getDate()));
 			return  new ReservationResponse(res);
 		}
