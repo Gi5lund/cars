@@ -79,8 +79,6 @@ public class MemberService
 				memberRepository.delete(getMember(username));
 				return ResponseEntity.ok(true);
 			}
-
-			//utility metode:
 			private Member getMember(String username){
 				Member member;
 				member= memberRepository.findById(username).
