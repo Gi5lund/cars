@@ -1,14 +1,12 @@
 package dat3.car.entity;
 
+import dat3.security.entity.UserWithRoles;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.antlr.v4.runtime.misc.NotNull;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -19,18 +17,20 @@ import java.util.Set;
 @Setter
 //-----
 @Entity
-@Table(name = "member")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "USER_TYPE")
 
-public class Member extends AdminDetails
+
+public class Member extends UserWithRoles
 	{
-	@Id
-	//@GeneratedValue(strategy = GenerationType.UUID)
-	@Column(name = "username",unique = true)
-		private String username;
-	@Column(name="password",nullable = false)
-		private String password;
-	@Column(name = "e-mail")
-		private String email;
+//	@Id
+//	//@GeneratedValue(strategy = GenerationType.UUID)
+//	@Column(name = "username",unique = true)
+//		private String username;
+//	@Column(name="password",nullable = false)
+//		private String password;
+//	@Column(name = "e-mail")
+//		private String email;
 	@NotNull
 	@Column(length = 60)
 		private String firstName;
@@ -48,16 +48,14 @@ public class Member extends AdminDetails
 		private boolean approved;
 		@Column(name = "ranking")
 		private int ranking;
-		@OneToMany(mappedBy = "member")
-		private Set<Reservation> reservations;
+		@OneToMany(mappedBy = "member",cascade = CascadeType.DETACH, orphanRemoval = true)
+		private List<Reservation> reservations;
 
 
 
 		public Member(String user, String password, String email, String firstName,
 						  String lastName, String street, String city, String zip) {
-			this.username = user;
-			this.password= password;
-			this.email = email;
+			super(user,password,email);
 			this.firstName = firstName;
 			this.lastName = lastName;
 			this.street = street;
@@ -66,7 +64,7 @@ public class Member extends AdminDetails
 		}
 		public void addReservation(Reservation reservation){
 			if(reservations==null){
-				reservations=new HashSet<>();
+				reservations=new ArrayList<>();
 			}
 			reservations.add(reservation);
 		}

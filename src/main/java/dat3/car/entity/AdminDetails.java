@@ -16,4 +16,6 @@ public abstract class AdminDetails {
 	protected LocalDateTime created;
 	@UpdateTimestamp
 	protected LocalDateTime edited;
+
+
 }

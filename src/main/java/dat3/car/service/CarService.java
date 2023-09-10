@@ -58,6 +58,23 @@ public class CarService
 				carRepository.save(car);
 				return ResponseEntity.ok(true);
 			}
+			//Find all cars with a certain brand and model
+			public List<CarResponse> findCarsByBrandAndModel(String brand,String model){
+			List<Car> cars=carRepository.findAllByBrandAndModel(brand,model);
+				List<CarResponse> respons=cars.stream().map((car -> new CarResponse(car,false))).toList();
+				return respons;
+			}
+		public List<CarResponse> findCarsByBrandAndModel(CarRequest body){
+			List<Car> cars=carRepository.findAllByBrandAndModel(body.getBrand(), body.getModel());
+			List<CarResponse> respons=cars.stream().map((car -> new CarResponse(car,false))).toList();
+			return respons;
+		}
+		//Find all cars that have not been reserved
+		public List<CarResponse> getCarsWithNoReservations(){
+			List<Car> cars=carRepository.findAllByReservationsIsNull();
+			List<CarResponse> response=cars.stream().map((car -> new CarResponse(car,false))).toList();
+			return response;
+		}
 		private Car getCar(int id){
 			Car car;
 			car=carRepository.findById(id).
