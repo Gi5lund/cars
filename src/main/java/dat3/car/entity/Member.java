@@ -7,7 +7,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.antlr.v4.runtime.misc.NotNull;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @NoArgsConstructor
@@ -46,8 +48,8 @@ public class Member extends UserWithRoles
 		private boolean approved;
 		@Column(name = "ranking")
 		private int ranking;
-		@OneToMany(mappedBy = "member")
-		private Set<Reservation> reservations;
+		@OneToMany(mappedBy = "member",cascade = CascadeType.DETACH, orphanRemoval = true)
+		private List<Reservation> reservations;
 
 
 
@@ -62,7 +64,7 @@ public class Member extends UserWithRoles
 		}
 		public void addReservation(Reservation reservation){
 			if(reservations==null){
-				reservations=new HashSet<>();
+				reservations=new ArrayList<>();
 			}
 			reservations.add(reservation);
 		}

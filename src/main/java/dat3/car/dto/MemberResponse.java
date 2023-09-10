@@ -3,9 +3,18 @@ package dat3.car.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import dat3.car.entity.Member;
+import dat3.car.entity.Reservation;
+import dat3.car.repository.CarRepository;
+import dat3.car.repository.MemberRepository;
+import dat3.car.repository.ReservationRepository;
+import dat3.car.service.ReservationService;
 import lombok.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -31,6 +40,8 @@ public class MemberResponse
 		LocalDateTime edited;
 		Integer ranking;
 		Boolean approved;
+		List<ReservationResponse> reservations;
+
 
 		//Convert Member Entity to Member DTO
 		public MemberResponse(Member m, boolean includeAll)
@@ -42,6 +53,7 @@ public class MemberResponse
 				this.lastName = m.getLastName();
 				this.city = m.getCity();
 				this.zip = m.getZip();
+				this.reservations= ReservationService.getUserReservations(m) ;
 				if (includeAll) {
 					this.created = m.getCreated();
 					this.edited = m.getEdited();

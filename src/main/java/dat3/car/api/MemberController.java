@@ -51,8 +51,10 @@ class MemberController {
 
 	// Security ????
 	@DeleteMapping("/{username}")
-	ResponseEntity<Boolean> deleteMemberByUsername(@PathVariable String username) {
-		return memberService.deleteMemberByID(username);
+	void deleteMemberByUsername(@PathVariable String username) {
+	memberService.deleteMemberByID(username);
 	}
+
+
 
 }

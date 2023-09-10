@@ -2,8 +2,12 @@ package dat3.car.service;
 
 import dat3.car.dto.MemberRequest;
 import dat3.car.dto.MemberResponse;
+import dat3.car.entity.Car;
 import dat3.car.entity.Member;
+import dat3.car.entity.Reservation;
+import dat3.car.repository.CarRepository;
 import dat3.car.repository.MemberRepository;
+import dat3.car.repository.ReservationRepository;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -24,21 +29,39 @@ class MemberServiceH2Test {
 	@Autowired
 	MemberRepository memberRepository;
 	MemberService memberService;
+	@Autowired
+	ReservationRepository reservationRepository;
+	ReservationService reservationService;
+	@Autowired
+	CarRepository carRepository;
+	CarService carService;
 
-	Member m1, m2;  //Talk about references in Java for why we don't add the "isInitialize flag"
+
+
+	Member m1, m2; //Talk about references in Java for why we don't add the "isInitialize flag"
+	Car car1,car2;
+	LocalDate date1=LocalDate.now();
+	LocalDate date2=date1.plusDays(1);
+	Reservation r1;
 
 	@BeforeEach
 	void setUp() {
+
 		m1 = memberRepository.save(new Member("user1", "pw1", "email1", "fn1", "ln1",  "street1", "city1", "zip1"));
 		m2 = memberRepository.save(new Member("user2", "pw2", "email2", "fn2", "ln2", "street2", "city2", "zip2"));
 		memberService = new MemberService(memberRepository); //Set up memberService with the mock (H2) database
+		car1=carRepository.saveAndFlush(new Car("Ford","Fiesta",270.30,15));
+		car2=carRepository.saveAndFlush(new Car("Toyota","Yaris",150,152));
+		carService=new CarService(carRepository);
+		r1=reservationRepository.saveAndFlush(new Reservation(car1,m1,date1));
+		reservationService=new ReservationService(memberRepository,carRepository,reservationRepository);
 	}
 
 	@Test
 	void testGetMembersAllDetails() {
-		List<MemberResponse> reponse= memberService.getMembers(true);
-		assertEquals(2,reponse.size(),"I should return 2 members");
-		LocalDateTime time=reponse.get(0).getCreated();
+		List<MemberResponse> response= memberService.getMembers(true);
+		assertEquals(2,response.size(),"I should return 2 members");
+		LocalDateTime time=response.get(0).getCreated();
 		assertNotNull(time,"Date must be set when includeAll=true");
 	}
 
@@ -85,8 +108,8 @@ class MemberServiceH2Test {
 	@Test
 	void testAddMember_UserDoesExistThrows() {
 		//This should test that a ResponseStatus exception is thrown with status= 409 (BAD_REQUEST)
-		MemberRequest request= new MemberRequest();
-		request.setUsername("user1");
+		MemberRequest request= new MemberRequest(m1);
+
 		ResponseStatusException ex= assertThrows(ResponseStatusException.class,
 				()->memberService.addMember(request));
 		assertEquals(HttpStatus.BAD_REQUEST,ex.getStatusCode());
@@ -150,7 +173,7 @@ class MemberServiceH2Test {
 	@Test
 	void testDeleteMemberByUsername() {
 	memberService.deleteMemberByID("user1");
-	assertFalse(memberRepository.existsById("user1"));
+	assertFalse(memberRepository.existsByUsername("user1"));
 	}
 
 	@Test

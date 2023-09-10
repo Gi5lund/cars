@@ -5,6 +5,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 @NoArgsConstructor
 @Getter
 @Setter
@@ -26,7 +31,8 @@ public class Car extends AdminDetails
 		private double pricePrDay;
 		@Column(name = "max_discount")
 		private int bestDiscount;
-
+		@OneToMany(mappedBy = "car",cascade = CascadeType.DETACH,orphanRemoval = true)
+		private List<Reservation> reservations;
 
 		public Car(String brand, String model, double pricePrDay, int bestDiscount)
 			{
@@ -36,6 +42,11 @@ public class Car extends AdminDetails
 				this.pricePrDay = pricePrDay;
 				this.bestDiscount = bestDiscount;
 			}
-
+		public void addReservation(Reservation reservation){
+			if(reservations==null){
+				reservations=new ArrayList<>();
+			}
+			reservations.add(reservation);
+		}
 
 	}

@@ -23,17 +23,20 @@ public class MemberService
 
 		public List<MemberResponse> getMembers(boolean includeAll)
 			{
-				//new ArrayList<>();
+
 				List<Member> members=memberRepository.findAll();
-//				for(Member member:members){
-//					MemberResponse mr=new MemberResponse(member, includeAll);
-//					respons.add(mr);
-//				}
+
 				List<MemberResponse> respons=members.stream().map((member -> new MemberResponse(member,includeAll))).toList();
 
 				return respons;
 
 			}
+			//Find all members who have made a reservation
+		public List<MemberResponse> membersWithReservation(){
+			List<Member> members=memberRepository.findAllByReservationsIsNotNull();
+			List<MemberResponse> response=members.stream().map((member -> new MemberResponse(member,false))).toList();
+			return response;
+		}
 
 		public MemberResponse addMember(MemberRequest body)
 			{
@@ -74,10 +77,10 @@ public class MemberService
 			}
 
 
-		public ResponseEntity<Boolean> deleteMemberByID(String username)
+		public void deleteMemberByID(String username)
 			{
 				memberRepository.delete(getMember(username));
-				return ResponseEntity.ok(true);
+
 			}
 			private Member getMember(String username){
 				Member member;
@@ -85,6 +88,7 @@ public class MemberService
 						orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Member with this username does not exist"));
 				return member;
 			}
+
 
 
 	}
