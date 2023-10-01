@@ -4,6 +4,7 @@ import dat3.security.entity.UserWithRoles;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.Setter;
 import org.antlr.v4.runtime.misc.NotNull;
 
@@ -31,13 +32,13 @@ public class Member extends UserWithRoles
 //		private String password;
 //	@Column(name = "e-mail")
 //		private String email;
-	@NotNull
+	@NonNull
 	@Column(length = 60)
 		private String firstName;
-		@NotNull
+		@NonNull
 		@Column(length = 60)
 		private String lastName;
-		@NotNull
+		@NonNull
 		@Column(length = 60)
 		private String street;
 		@Column(length = 60)
