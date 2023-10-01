@@ -63,7 +63,8 @@ public class SecurityConfig {
                             .authenticationEntryPoint(new CustomOAuth2AuthenticationEntryPoint()));
     http.authorizeHttpRequests((authorize) -> authorize
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/api/auth/login")).permitAll()
-            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/api/user-with-role")).permitAll() //Clients can create a user for themself
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/api/members")).permitAll()
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/api/user-with-role")).permitAll() //Clients can create a user for themselves
 
             //This is for demo purposes only, and should be removed for a real system
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/demo/anonymous")).permitAll()
@@ -72,14 +73,20 @@ public class SecurityConfig {
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET,"/*")).permitAll()
 
             .requestMatchers(mvcMatcherBuilder.pattern("/error")).permitAll()
-
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET,"/api/reservations")).hasAnyAuthority("USER", "ADMIN")
+          .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/api/reservations")).hasAuthority("USER")
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST,"/api/reservations/v2")).hasAnyAuthority("USER", "ADMIN")
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET,"/api/reservations/reservations-for-authenticated")).hasAuthority("USER")
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/cars/admin")).hasAuthority("ADMIN")
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/cars")).hasAuthority("USER")
             //Use this to completely disable security (Will not work if endpoints has been marked with @PreAuthorize)
-            .requestMatchers(mvcMatcherBuilder.pattern( "/**")).permitAll());
+          //  .requestMatchers(mvcMatcherBuilder.pattern( "/**")).permitAll());
 
             //This is for demo purposes only, and should be removed for a real system
             //.requestMatchers(HttpMethod.GET, "/api/demouser/user-only").hasAuthority("USER")
             // .requestMatchers(HttpMethod.GET, "/api/demouser/admin-only").hasAuthority("ADMIN")
-           // .anyRequest().authenticated());
+          // comment out below if testing without security
+            .anyRequest().authenticated());
 
     return http.build();
   }

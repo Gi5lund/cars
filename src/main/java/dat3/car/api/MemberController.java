@@ -7,11 +7,13 @@ import dat3.car.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("api/members")
 class MemberController {
 	MemberService memberService;
@@ -30,6 +32,7 @@ class MemberController {
 	MemberResponse getMemberById(@PathVariable String username) throws Exception {
 		return memberService.findById(username);
 	}
+
 
 	//Security --> Anonymous
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

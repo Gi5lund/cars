@@ -45,7 +45,7 @@ public class MemberService
 					throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"This user already exists");
 				}
 				newMember=memberRepository.save(newMember);
-				return new MemberResponse(newMember,true);
+				return new MemberResponse(newMember,false);
 			}
 		public ResponseEntity<Boolean> editMember(MemberRequest body, String username) {
 			Member member = getMember(username);

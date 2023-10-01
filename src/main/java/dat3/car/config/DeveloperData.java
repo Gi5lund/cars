@@ -6,6 +6,7 @@ import dat3.car.entity.Reservation;
 import dat3.car.repository.CarRepository;
 import dat3.car.repository.MemberRepository;
 import dat3.car.repository.ReservationRepository;
+import dat3.security.entity.Role;
 import dat3.security.repository.UserWithRolesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -43,6 +44,7 @@ public class DeveloperData implements ApplicationRunner
 			carRepository.saveAll(cars);
 			Car car1 = new Car("VW", "Golf", 760, 25);
 			Member m1 = new Member("Jan","test12","a@b.dk","Jan","Jensen","Lyngbyvej 1","Lyngby","2800");
+			m1.addRole(Role.USER);
 			carRepository.save(car1);
 			memberRepository.save(m1);
 
@@ -61,7 +63,7 @@ public class DeveloperData implements ApplicationRunner
 			@Autowired
 	UserWithRolesRepository userWithRolesRepository;
 
-		final String passwordUsedByAll1 = "test12";
+	//	final String passwordUsedByAll1 = "test12";
 
 		/*****************************************************************************************
 		 NEVER  COMMIT/PUSH CODE WITH DEFAULT CREDENTIALS FOR REAL

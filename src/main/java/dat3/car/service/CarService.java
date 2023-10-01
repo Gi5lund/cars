@@ -45,18 +45,16 @@ public class CarService
 				return new CarResponse(newCar,true);
 			}
 
-		public ResponseEntity<Boolean> editCar(CarRequest body, int id)
+		public CarResponse editCar(CarRequest body, int id)
 			{
 				Car car=getCar(id);
-				if(body.getId()!=id){
-					throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Cannot change car-Id");
-				}
+				
 				car.setBrand(body.getBrand());
 				car.setModel(body.getModel());
 				car.setBestDiscount(body.getBestDiscount());
 				car.setPricePrDay(body.getPricePrDay());
-				carRepository.save(car);
-				return ResponseEntity.ok(true);
+				Car saved=carRepository.save(car);
+				return new CarResponse(saved,true);
 			}
 			//Find all cars with a certain brand and model
 			public List<CarResponse> findCarsByBrandAndModel(String brand,String model){

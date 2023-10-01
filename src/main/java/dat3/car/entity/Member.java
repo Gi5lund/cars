@@ -23,7 +23,7 @@ import java.util.Set;
 
 public class Member extends UserWithRoles
 	{
-//	@Id
+	//@Id
 //	//@GeneratedValue(strategy = GenerationType.UUID)
 //	@Column(name = "username",unique = true)
 //		private String username;

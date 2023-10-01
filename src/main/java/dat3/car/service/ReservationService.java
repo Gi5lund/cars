@@ -25,7 +25,7 @@ public class ReservationService
 		MemberRepository memberRepository;
 		CarRepository carRepository;
 
-		static ReservationRepository reservationRepository;
+		ReservationRepository reservationRepository;
 
 		public ReservationService(MemberRepository memberRepository, CarRepository carRepository, ReservationRepository reservationRepository)
 			{
@@ -37,8 +37,10 @@ public class ReservationService
 			if(body.getDate().isBefore(LocalDate.now())){
 				throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Date in past not allowed");
 			}
-			Member member = memberRepository.findById(body.getUserName()).orElseThrow(
+			System.out.println(body.getUsername());
+			Member member = memberRepository.findById(body.getUsername()).orElseThrow(
 					() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"No member with this id found"));
+
 			Car car = carRepository.findById(body.getCarId()).orElseThrow(
 					() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"No Car with this id found"));
 			//What if already reserved
@@ -48,10 +50,16 @@ public class ReservationService
 			Reservation res = reservationRepository.save(new Reservation(car,member,body.getDate()));
 			return  new ReservationResponse(res);
 		}
-		public static  List<ReservationResponse> getUserReservations(Member member){
-			List<Reservation> reservations=reservationRepository.findAllByMember_Username(member.getUsername());
-			List<ReservationResponse> responseList=reservations.stream().map((reservation -> new ReservationResponse(reservation))).toList();
-			return responseList;
-		}
+//		public static  List<ReservationResponse> getUserReservations(Member member){
+//			List<Reservation> reservations=reservationRepository.findAllByMember_Username(member.getUsername());
+//			List<ReservationResponse> responseList=reservations.stream().map((reservation -> new ReservationResponse(reservation))).toList();
+//			return responseList;
+//		}
 
+		public List<ReservationResponse> getReservationsForUser(String userName)
+			{
+				List<Reservation> reservations=reservationRepository.findAllByMember_Username(userName);
+				List<ReservationResponse> responseList=reservations.stream().map((reservation -> new ReservationResponse(reservation))).toList();
+				return responseList;
+			}
 	}

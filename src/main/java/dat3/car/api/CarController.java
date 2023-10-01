@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("api/cars")
 
 public class CarController
@@ -27,6 +28,10 @@ public class CarController
 		@GetMapping
 		List<CarResponse> getCar(){
 			return carService.getCars(false);
+		}
+		@GetMapping("/admin")
+		List<CarResponse> getCars(){
+			return carService.getCars(true);
 		}
 		//Security Admin
 		@GetMapping(path = "/{id}")
@@ -42,7 +47,7 @@ public class CarController
 
 		//Security ???
 		@PutMapping("/{id}")
-		ResponseEntity<Boolean> editCar(@RequestBody CarRequest body, @PathVariable int id){
+		CarResponse editCar(@RequestBody CarRequest body, @PathVariable int id){
 			return carService.editCar(body,id);
 		}
 

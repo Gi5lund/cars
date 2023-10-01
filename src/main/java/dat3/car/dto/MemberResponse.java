@@ -53,8 +53,11 @@ public class MemberResponse
 				this.lastName = m.getLastName();
 				this.city = m.getCity();
 				this.zip = m.getZip();
-				this.reservations= ReservationService.getUserReservations(m) ;
+				//this.reservations= ReservationService.getUserReservations(m) ;
+
+
 				if (includeAll) {
+					this.reservations=m.getReservations().stream().map(r -> new ReservationResponse((Reservation) r)).toList();
 					this.created = m.getCreated();
 					this.edited = m.getEdited();
 					this.approved = m.isApproved();
