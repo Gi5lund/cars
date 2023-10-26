@@ -85,10 +85,8 @@ public class MemberService
 
 			//utility metode:
 			private Member getMember(String username){
-				Member member;
-				member= memberRepository.findById(username).
+				return memberRepository.findById(username).
 						orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Member with this username does not exist"));
-				return member;
 			}
 
 

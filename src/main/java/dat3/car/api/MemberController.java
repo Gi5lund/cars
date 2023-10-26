@@ -35,7 +35,7 @@ class MemberController {
 
 
 	//Security --> Anonymous
-	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+		@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	MemberResponse addMember(@RequestBody MemberRequest body){
 		return memberService.addMember(body);
 	}
